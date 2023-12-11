@@ -1,0 +1,30 @@
+{
+  "name": "email-to-gotify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node -T index.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mailparser": "^3.4.4",
+    "@types/node": "^20.10.4",
+    "@types/smtp-server": "^3.5.10",
+    "nodemon": "^3.0.2",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@thenerdyhick/ts-logger": "^1.0.2",
+    "@thenerdyhick/ts-secrets": "^1.0.1",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "mailparser": "^3.6.5",
+    "smtp-server": "^3.13.0"
+  }
+}
