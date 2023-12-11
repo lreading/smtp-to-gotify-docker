@@ -15,13 +15,19 @@ const server = new SMTPServer({
         });
     },
     onAuth(auth, session, callback) {
-        // auth.accessToken = Buffer.from(auth.accessToken, 'base64').toString();
         console.warn('Access token:', auth.accessToken);
         console.warn('Username: ', auth.username);
         console.warn('Password: ', auth.password);
-        // If failed, do the callback with { data: 'Invalid login' }
-        // callback(null, { user: 'test_user' });
-        callback(null, { data: { error: 'Invalid login' }});
+
+        if (auth.accessToken === config.apiKey || auth.password === config.apiKey) {
+            return callback(null, { user: auth.username });
+        }
+
+        if (auth.accessToken) {
+            return callback(null, { data: { error: 'Invalid login' }});
+        }
+
+        return callback(new Error('Invalid login'), null);
     },
     authMethods: ['XOAUTH2', 'LOGIN']
 });
