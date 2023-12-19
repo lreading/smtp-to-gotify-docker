@@ -6,7 +6,7 @@ This is a simple docker container that forwards SMTP messages to Gotify.  I crea
 | --- | --- | --- |
 | `GOTIFY_URL` | The URL of your Gotify instance |  |
 | `GOTIFY_TOKEN` | The token of your Gotify instance |  |
-| `API_KEY` | The API key to use for SMTP authentication.  This ignores the username value, and only checks the key.  This is so that you can have multiple systems report to the same application in Gotify and differentiate them in the notifications |  |
+| `API_KEY` | The API key to use for SMTP authentication.  This ignores the username value, and only checks the key.  This is so that you can have multiple systems report to the same application in Gotify and differentiate them in the notifications.  You can use any value you want here, but your email clients will need to use that value as the password. |  |
 | `BIND_IP` | The IP address to bind to | `0.0.0.0` |
 | `PORT` | The port to bind to | `2525` |
 
