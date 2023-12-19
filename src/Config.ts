@@ -5,7 +5,8 @@ export const config = {
     port: 2525,
     bindIp: '',
     apiKey: '',
-    gotifyToken: ''
+    gotifyToken: '',
+    gotifyUrl: ''
 };
 
 export const loadConfig = () => {
@@ -14,4 +15,5 @@ export const loadConfig = () => {
     config.bindIp = new StringSecret({ name: 'BIND_IP', default: '0.0.0.0' }).load();
     config.apiKey = new StringSecret({ name: 'API_KEY', required: true }).load();
     config.gotifyToken = new StringSecret({ name: 'GOTIFY_TOKEN', required: true }).load();
+    config.gotifyUrl = new StringSecret({ name: 'GOTIFY_URL', required: true }).load();
 };

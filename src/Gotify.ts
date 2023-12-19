@@ -14,7 +14,7 @@ export class Gotify {
 
     private createClient(): AxiosInstance {
         const client = axios.create({
-            baseURL: 'https://gotify.leoathome.com',
+            baseURL: config.gotifyUrl,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
