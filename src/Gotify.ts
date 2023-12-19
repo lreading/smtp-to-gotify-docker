@@ -1,14 +1,15 @@
 import axios, { AxiosInstance } from 'axios';
-import { createLogger, Logger, transports } from 'winston';
+import { Logger } from 'winston';
 
 import { config } from './Config';
+import { getLogger } from './Logger';
 
 export class Gotify {
     private readonly client: AxiosInstance;
     private readonly logger: Logger;
 
     constructor() {
-        this.logger = createLogger({ transports: [ transports.Console ]});
+        this.logger = getLogger(this.constructor.name);
         this.client = this.createClient();
     }
 

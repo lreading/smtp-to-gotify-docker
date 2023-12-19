@@ -1,9 +1,10 @@
-import { createLogger, Logger, transports } from 'winston';
+import { Logger } from 'winston';
 import { simpleParser } from 'mailparser';
 import { SMTPServer } from 'smtp-server';
 
 import { config } from './Config';
 import { Gotify } from './Gotify';
+import { getLogger } from './Logger';
 
 export class Smtp {
     private readonly gotify: Gotify;
@@ -11,7 +12,7 @@ export class Smtp {
     private readonly logger: Logger;
 
     constructor() {
-        this.logger = createLogger({ transports: [ transports.Console ]});
+        this.logger = getLogger(this.constructor.name);
         this.gotify = new Gotify();
         this.server = this.createServer();
     }

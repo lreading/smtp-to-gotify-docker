@@ -7,7 +7,7 @@ RUN             npm install -g pnpm
 COPY            package.json package.json
 COPY            pnpm-lock.yaml pnpm-lock.yaml
 
-RUN             --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile
+RUN             pnpm install --frozen-lockfile
 
 COPY            . .
 
@@ -15,5 +15,6 @@ RUN             pnpm run build
 
 USER            node
 
+ENV             NODE_ENV=production
 
 CMD             ["node", "/app/dist/index.js"]
