@@ -20,7 +20,7 @@ docker run \
     -e GOTIFY_URL=https://gotify.example.com \
     -e GOTIFY_TOKEN=your-token \
     -e API_KEY=some-secret-you-control \
-    imoshtokill/smtp-to-gotify
+    imoshtokill/smtp-to-gotify-docker:latest
 ```
 
 After it's running, you can test it by sending it a test email.  If you have node installed, you can run the following in a new, empty directory:
