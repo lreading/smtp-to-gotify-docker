@@ -1,5 +1,5 @@
 {
-  "name": "email-to-gotify",
+  "name": "smtp-to-gotify-docker",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -20,11 +20,11 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@thenerdyhick/ts-logger": "^1.0.2",
     "@thenerdyhick/ts-secrets": "^1.0.1",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "mailparser": "^3.6.5",
-    "smtp-server": "^3.13.0"
+    "smtp-server": "^3.13.0",
+    "winston": "^3.11.0"
   }
 }

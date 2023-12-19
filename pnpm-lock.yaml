@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@thenerdyhick/ts-logger':
-    specifier: ^1.0.2
-    version: 1.0.2
   '@thenerdyhick/ts-secrets':
     specifier: ^1.0.1
     version: 1.0.1
@@ -23,6 +20,9 @@ dependencies:
   smtp-server:
     specifier: ^3.13.0
     version: 3.13.0
+  winston:
+    specifier: ^3.11.0
+    version: 3.11.0
 
 devDependencies:
   '@types/mailparser':
@@ -90,14 +90,6 @@ packages:
     dependencies:
       domhandler: 5.0.3
       selderee: 0.11.0
-    dev: false
-
-  /@thenerdyhick/ts-logger@1.0.2:
-    resolution: {integrity: sha512-U0HetwCcBgjQW055tIv0aiBFi7OWVyyjSIzgCn2dDl+arK8RbGJuwauI+eNNO/WEEdCp1vfvZAVy5pLHY3hTbQ==}
-    dependencies:
-      logform: 2.6.0
-      winston: 3.11.0
-      winston-transport: 4.6.0
     dev: false
 
   /@thenerdyhick/ts-secrets@1.0.1:

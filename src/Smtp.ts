@@ -1,4 +1,4 @@
-import { getLogger, TSLogger } from '@thenerdyhick/ts-logger';
+import { createLogger, Logger, transports } from 'winston';
 import { simpleParser } from 'mailparser';
 import { SMTPServer } from 'smtp-server';
 
@@ -8,16 +8,16 @@ import { Gotify } from './Gotify';
 export class Smtp {
     private readonly gotify: Gotify;
     private readonly server: SMTPServer;
-    private readonly logger: TSLogger;
+    private readonly logger: Logger;
 
     constructor() {
-        this.logger = getLogger(this.constructor.name);
+        this.logger = createLogger({ transports: [ transports.Console ]});
         this.gotify = new Gotify();
         this.server = this.createServer();
     }
 
     start(): void {
-        this.logger.info(`Starting server at ${config.bindIp}:${config.port}`);
+        this.logger.info(`Starting SMTP server at ${config.bindIp}:${config.port}`);
         this.server.listen(config.port, config.bindIp);
     }
 
