@@ -26,7 +26,7 @@ export class Smtp {
         const $this = this;
 
         return new SMTPServer({
-            authOptional: true,
+            authOptional: false,
             onData(stream, session, callback) {
                 simpleParser(stream, {}, (err, parsed) => {
                     if (err) {
