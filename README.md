@@ -23,16 +23,28 @@ docker run \
     imoshtokill/smtp-to-gotify-docker:latest
 ```
 
-After it's running, you can test it by sending it a test email.  If you have node installed, you can run the following in a new, empty directory:
-
+After it's running, you can test it by sending it a test email.  A simple way of testing this is via curl:
+```bash
+curl --url "smtp://127.0.0.1:2525" \
+  --user "api_user:some-secret-you-control" \
+  --mail-from "test@test.com" \
+  --mail-rcpt "test@test.com" \
+  --upload-file email.txt \ # where email.txt is a file with the email contents
+  --insecure \
+  --ssl-reqd
 ```
+
+
+Another way of testing, if you have NodeJS installed, is by running the following in a new, empty directory:
+
+```bash
 npm init
 npm i -S nodemailer
 ```
 
 Then create a file called `index.js` with the following contents:
 
-```
+```javascript
 const { createTransport } = require('nodemailer');
 
 const transporter = createTransport({
