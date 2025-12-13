@@ -16,6 +16,9 @@ export class Smtp {
         this.logger = getLogger(this.constructor.name);
         this.gotify = new Gotify();
         this.server = this.createServer();
+        this.server.on('error', (err) => {
+            this.logger.error('SMTP server error', err);
+        });
     }
 
     start(): void {

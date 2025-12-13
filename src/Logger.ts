@@ -1,14 +1,19 @@
 import { createLogger, format, Logger, transports } from 'winston';
 
+const baseFormat = format.combine(
+    format.timestamp(),
+    format.json()
+);
+
 export const getLogger = (service: string): Logger => {
     return createLogger({
         level: 'info',
-        format: format.json(),
+        format: baseFormat,
         defaultMeta: { service },
         transports: [
             new transports.File({ filename: 'error.log', level: 'error' }),
             new transports.File({ filename: 'combined.log' }),
-            new transports.Console({ format: process.env.NODE_ENV === 'production' ? format.json() : format.simple() })
+            new transports.Console()
         ],
     });
 }
