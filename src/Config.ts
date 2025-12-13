@@ -6,7 +6,9 @@ export const config = {
     bindIp: '',
     apiKey: '',
     gotifyToken: '',
-    gotifyUrl: ''
+    gotifyUrl: '',
+    tlsKeyPath: '',
+    tlsCertPath: ''
 };
 
 export const loadConfig = () => {
@@ -16,4 +18,6 @@ export const loadConfig = () => {
     config.apiKey = new StringSecret({ name: 'API_KEY', required: true }).load();
     config.gotifyToken = new StringSecret({ name: 'GOTIFY_TOKEN', required: true }).load();
     config.gotifyUrl = new StringSecret({ name: 'GOTIFY_URL', required: true }).load();
+    config.tlsKeyPath = new StringSecret({ name: 'TLS_KEY_PATH' }).load();
+    config.tlsCertPath = new StringSecret({ name: 'TLS_CERT_PATH' }).load();
 };

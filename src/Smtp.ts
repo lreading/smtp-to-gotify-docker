@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { Logger } from 'winston';
 import { simpleParser } from 'mailparser';
 import { SMTPServer } from 'smtp-server';
@@ -25,7 +26,7 @@ export class Smtp {
     private createServer(): SMTPServer {
         const $this = this;
 
-        return new SMTPServer({
+        const options: any = {
             authOptional: false,
             onData(stream, session, callback) {
                 simpleParser(stream, {}, (err, parsed) => {
@@ -52,6 +53,14 @@ export class Smtp {
                 return callback(new Error('Invalid login'), null);
             },
             authMethods: ['XOAUTH2', 'LOGIN']
-        });
+        };
+
+        if (config.tlsKeyPath && config.tlsCertPath) {
+            this.logger.info('Enabling STARTTLS with configured certificate');
+            options.key = fs.readFileSync(config.tlsKeyPath);
+            options.cert = fs.readFileSync(config.tlsCertPath);
+        }
+
+        return new SMTPServer(options);
     }
 }

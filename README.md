@@ -9,6 +9,8 @@ This is a simple docker container that forwards SMTP messages to Gotify.  I crea
 | `API_KEY` | The API key to use for SMTP authentication.  This ignores the username value, and only checks the key.  This is so that you can have multiple systems report to the same application in Gotify and differentiate them in the notifications.  You can use any value you want here, but your email clients will need to use that value as the password. |  |
 | `BIND_IP` | The IP address to bind to | `0.0.0.0` |
 | `PORT` | The port to bind to | `2525` |
+| `TLS_KEY_PATH` | Optional. Path to a private key file used for STARTTLS. If set together with `TLS_CERT_PATH`, the server will advertise STARTTLS and use this key. |  |
+| `TLS_CERT_PATH` | Optional. Path to a certificate file used for STARTTLS. The certificate should match the hostname clients use to connect. |  |
 
 # Running
 You can run this in many ways, but the point here was having a docker image.  I have this deployed in my kubernetes environment alongside my gotify instance. 
@@ -77,3 +79,6 @@ transporter.sendMail(mailOptions, function(error, info){
 ```
 
 Then run `node index.js` and you should see the email show up in your gotify instance.  If you don't, check the logs of the docker container to see what's going on.
+
+# TLS and STARTTLS
+This server supports STARTTLS when both `TLS_KEY_PATH` and `TLS_CERT_PATH` are set. The files are read from the container filesystem and passed to the SMTP server so that clients such as Alertmanager can require TLS and validate the certificate. In Kubernetes you can mount a cert manager managed secret into the container and point these variables at `/certs/tls.key` and `/certs/tls.crt`.
