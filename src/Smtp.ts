@@ -1,4 +1,3 @@
-import fs from 'fs';
 import { Logger } from 'winston';
 import { simpleParser } from 'mailparser';
 import { SMTPServer } from 'smtp-server';
@@ -6,22 +5,26 @@ import { SMTPServer } from 'smtp-server';
 import { config } from './Config';
 import { Gotify } from './Gotify';
 import { getLogger } from './Logger';
+import { TlsCertificateWatcher } from './TlsCertificateWatcher';
 
 export class Smtp {
     private readonly gotify: Gotify;
     private readonly server: SMTPServer;
     private readonly logger: Logger;
+    private readonly tlsCertificateWatcher: TlsCertificateWatcher;
 
     constructor() {
         this.logger = getLogger(this.constructor.name);
         this.gotify = new Gotify();
         this.server = this.createServer();
+        this.tlsCertificateWatcher = new TlsCertificateWatcher(this.server);
         this.server.on('error', (err) => {
             this.logger.error('SMTP server error', err);
         });
     }
 
     start(): void {
+        this.tlsCertificateWatcher.start();
         this.logger.info(`Starting SMTP server at ${config.bindIp}:${config.port}`);
         this.server.listen(config.port, config.bindIp);
     }
@@ -59,9 +62,8 @@ export class Smtp {
         };
 
         if (config.tlsKeyPath && config.tlsCertPath) {
-            this.logger.info('Enabling STARTTLS with configured certificate');
-            options.key = fs.readFileSync(config.tlsKeyPath);
-            options.cert = fs.readFileSync(config.tlsCertPath);
+            this.logger.info('STARTTLS is configured; certificate watcher will manage TLS context reloads');
+            options.disabledCommands = ['STARTTLS'];
         }
 
         return new SMTPServer(options);
