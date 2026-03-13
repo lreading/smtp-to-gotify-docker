@@ -81,4 +81,6 @@ transporter.sendMail(mailOptions, function(error, info){
 Then run `node index.js` and you should see the email show up in your gotify instance.  If you don't, check the logs of the docker container to see what's going on.
 
 # TLS and STARTTLS
-This server supports STARTTLS when both `TLS_KEY_PATH` and `TLS_CERT_PATH` are set. The files are read from the container filesystem and passed to the SMTP server so that clients such as Alertmanager can require TLS and validate the certificate. In Kubernetes you can mount a cert manager managed secret into the container and point these variables at `/certs/tls.key` and `/certs/tls.crt`.
+This server supports STARTTLS when both `TLS_KEY_PATH` and `TLS_CERT_PATH` are set. The server watches the parent directories of those files and reloads the TLS context at runtime whenever cert manager rotates the mounted secret. Existing TLS sessions keep using the context they started with, but new STARTTLS handshakes pick up the new certificate without restarting the container.
+
+If the configured files are temporarily missing at startup, STARTTLS stays hidden until both files become available. In Kubernetes you can mount a cert manager managed secret into the container and point these variables at `/certs/tls.key` and `/certs/tls.crt`.

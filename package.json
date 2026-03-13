@@ -12,19 +12,19 @@
   "license": "MIT",
   "devDependencies": {
     "@types/mailparser": "^3.4.6",
-    "@types/node": "^20.19.26",
+    "@types/node": "^20.19.37",
     "@types/smtp-server": "^3.5.12",
-    "nodemon": "^3.1.11",
+    "nodemon": "^3.1.14",
     "npm-run-all": "^4.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@thenerdyhick/ts-secrets": "^1.0.2",
-    "axios": "^1.13.2",
+    "axios": "^1.13.6",
     "dotenv": "^16.6.1",
-    "mailparser": "^3.9.1",
-    "smtp-server": "^3.17.1",
+    "mailparser": "^3.9.4",
+    "smtp-server": "^3.18.1",
     "winston": "^3.19.0"
   }
 }
